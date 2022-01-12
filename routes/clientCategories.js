@@ -21,6 +21,6 @@ router.get('/clientcategories',getAllClientCategories)
 router.put('/clientcategories/update/:userId',isSignedIn,isAuthenticated,isAdmin,updateClientCategory)
 
 //delete
-router.delete('/clientcategories/delete/:clientcategoryId',isSignedIn,isAuthenticated,isAdmin,deleteClientCategory)
+router.delete('/clientcategories/delete/:userId',isSignedIn,isAuthenticated,isAdmin,deleteClientCategory)
 
 module.exports = router

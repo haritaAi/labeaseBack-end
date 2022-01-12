@@ -38,10 +38,10 @@ exports.resetPswd = (req,res) => {
          }
          const token = jwt.sign(payload,new_secret,{expiresIn:'15m'})
          const link = `http://localhost:3000/labease/reset-pswd/${user._id}/${token}`
-         console.log(link)
+        
          var message = {
-            from: "smarthead123456.gmail.com",
-            to: "devspacecalicut@gmail.com",
+            from: process.ENV.EMAIL,
+            to: payload.email,
             subject: "Reset Password",
             text: `hi, there ..click the link to reset password`,
             html : `<div><h3>Hello , ${user.name}</h3> <a href=${link} >click here</a> to reset pasword </div>`
@@ -50,9 +50,9 @@ exports.resetPswd = (req,res) => {
          transporter.sendMail(message,function(err,info){
              
             if(err){
-                console.log(err)
+               res.send(err)
             }
-            else console.log('Email sent : '+ info.response)
+            else res.status(200).json({message : 'Email sent : '+ info.response})
         })
            res.json({message :"Password has been reset"})
 

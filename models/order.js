@@ -21,7 +21,11 @@ const OrderSchema = new mongoose.Schema({
           type:ObjectId,
           ref:"Client"
       },
-      client:String,      
+      client:String,    
+      enclosureList:{
+          type :ObjectId,
+          ref : "Enclosure"
+      },  
       patient:String,
       user:String,
       shipment:String,
@@ -43,8 +47,6 @@ const OrderSchema = new mongoose.Schema({
       billto:String,
       orderNotes:String,
       workType:String,
-      
-
           
 },{timestamps: true})
 

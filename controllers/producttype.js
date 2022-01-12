@@ -26,11 +26,13 @@ exports.getProductTypes =(req,res) => {
 }
 
 exports.updateProductType = (req,res) => {
-    
+  
      ProductType.findOneAndUpdate({_id : req.body._id},{...req.body},{new : true},(error,prodtype) => {
         if(error)return res.status(400).json(
            {message : "Could not update product type in DB "});
-           res.json(prodtype);
+
+         
+        res.json(prodtype);
     })
   
 }
