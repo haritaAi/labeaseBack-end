@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 const expressJwt = require('express-jwt');
 
 exports.signout = (req,res) => {
-   res.json({
+    
+    res.json({
         message : "user Signed out"
     });
 };
@@ -50,11 +51,11 @@ exports.signin = (req,res) => {
           if(!user.authenticate(password)){
                return  res.status(401).json({error : "Email and password do not match"});
           }
-
+        
              //create token
         const token = jwt.sign({_id : user._id}, process.env.SECRET);
         //put token in cookie
-        res.cookie("token",token,{expire: new Date() + 9999});
+        res.cookie("token",token,{expire: 10800000});
 
         //send response to front end
       const {_id,name,email,role} = user;

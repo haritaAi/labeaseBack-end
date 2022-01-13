@@ -25,6 +25,10 @@ let userSchema =new mongoose.Schema({
          type : Number,
          default : 1,
          required : true
+     },
+     status:{
+         type:Boolean
+         
      }
     
      

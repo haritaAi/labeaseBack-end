@@ -15,6 +15,7 @@ const OrderSchema = new mongoose.Schema({
       duedate:Date,
       dateIn:Date,
       deliverytime:String,
+      deliveryMethod:String,
       ordertime:String,      
       department:String,
       clientId : {
@@ -22,10 +23,7 @@ const OrderSchema = new mongoose.Schema({
           ref:"Client"
       },
       client:String,    
-      enclosureList:{
-          type :ObjectId,
-          ref : "Enclosure"
-      },  
+      enclosureList:[],    
       patient:String,
       user:String,
       shipment:String,
