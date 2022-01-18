@@ -35,6 +35,7 @@ exports.signup = (req,res) => {
 };
 
 exports.signin = (req,res) => {
+    
     const errors = validationResult(req);
     const {email,password} = req.body;
       if(!errors.isEmpty()){
@@ -53,9 +54,12 @@ exports.signin = (req,res) => {
           }
         
              //create token
+        req.session.userId = user._id     
         const token = jwt.sign({_id : user._id}, process.env.SECRET);
         //put token in cookie
-        res.cookie("token",token,{expire: 10800000});
+        // console.log("Session cookie:",req.session)
+        // res.cookie(SESS_NAME)
+        res.cookie("token",token,{expire: 1000*60*60});
 
         //send response to front end
       const {_id,name,email,role} = user;
@@ -66,6 +70,7 @@ exports.signin = (req,res) => {
 }; 
 
 exports.signout = (req,res) => {
+    // res.clearCookie(SESS_NAME)
     res.clearCookie("token");
     res.json({
         message : "User  signed out successfully" 

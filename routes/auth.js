@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require('express-session')
 const router = express.Router();
 const {check} = require("express-validator");
 const {signout,signup,signin, isSignedIn} = require('../controllers/auth');
@@ -20,7 +21,7 @@ router.post("/signup",[
 
 
 router.post("/signin",[
-   
+ 
     check("email","email is required").isEmail(),
     check("password","password is requires").isLength({min:6})
 ],signin);

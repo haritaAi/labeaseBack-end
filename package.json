@@ -22,6 +22,7 @@
     "express": "^4.17.1",
     "express-jwt": "^6.1.0",
     "express-openid-connect": "^2.5.0",
+    "express-session": "^1.17.2",
     "express-validator": "^6.12.1",
     "formidable": "^1.2.2",
     "jsonwebtoken": "^8.5.1",

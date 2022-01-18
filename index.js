@@ -1,10 +1,10 @@
 require('dotenv').config()
 const cors = require('cors')
 const express = require('express')
+const session = require('express-session')
 const mongoose = require('mongoose')
 const bodyParser= require('body-parser')
 const cookieParser= require('cookie-parser')
-
 
 //add my routes here
 const authRoutes  = require('./routes/auth')
@@ -35,6 +35,23 @@ app.use(cors())
 
 app.use(bodyParser.json())
 app.use(cookieParser())
+const TWO_HOURS = 1000*60*60
+const SESS_LIFETIME = TWO_HOURS
+const SESS_NAME = 'sid'
+
+
+app.use(session({
+  name : SESS_NAME,
+  resave : false,
+  saveUninitialized:false,
+  secret :process.env.SESS_SECRET,
+  cookie:{
+    maxAge : SESS_LIFETIME,
+    sameSite : true,
+    secure : true,    
+  }
+}))
+
 
 mongoose.connect(process.env.DATABASE,{
                useNewUrlParser : true,
@@ -72,7 +89,9 @@ app.use("/api",resetRoutes)
 app.use("/api",staffRoutes)
 
 
-app.get('/',(req,res) => res.status(200).send("hello world ! new server is ready"))
+app.get('/',(req,res) => {  
+  res.status(200).send("hello world ! new server is ready")
+}) 
 app.get('/resetpswd/:id/:token',(req,res) => {
    res.status(200).send(req.params)
 })
